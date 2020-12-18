@@ -1,0 +1,10 @@
+node_modules
+build
+
+# Files generated after Node crashes.
+report.*.json
+
+
+.DS_Store
+.now
+.vercel
