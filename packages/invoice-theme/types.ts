@@ -37,7 +37,7 @@ export default interface Theme extends Package {
       hasConcept: Derived<Packages, boolean>;
     };
     pdf: {
-      url?: string;
+      url: string;
     };
   };
   actions: {
