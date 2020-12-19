@@ -9,5 +9,6 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "allowJs": true
-  }
+  },
+  "include": ["packages/**/*"]
 }
