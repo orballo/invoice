@@ -68,6 +68,7 @@ export default interface Theme extends Package {
     };
     invoice: {
       afterCSR: Action<Packages>;
+      populateDates: Action<Packages>;
       fake: Action<Packages>;
     };
   };

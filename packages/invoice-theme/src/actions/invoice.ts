@@ -1,7 +1,11 @@
 import Theme from "../../types";
 
 const invoice: Theme["actions"]["invoice"] = {
-  afterCSR({ state }) {
+  afterCSR({ actions }) {
+    actions.invoice.populateDates();
+    // actions.invoice.fake();
+  },
+  populateDates: ({ state }) => {
     const issued = new Date();
     const expires = new Date(
       issued.getFullYear(),
@@ -21,8 +25,6 @@ const invoice: Theme["actions"]["invoice"] = {
 
     state.invoice.dates.issued = toFormat(issued);
     state.invoice.dates.expires = toFormat(expires);
-
-    // actions.invoice.fake();
   },
   fake: ({ state }) => {
     state.invoice.number = "1024";
