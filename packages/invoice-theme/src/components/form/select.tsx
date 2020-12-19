@@ -2,16 +2,25 @@ import React from "react";
 import { css, connect, useConnect } from "frontity";
 import { Packages } from "../../../types";
 
-const TemplateSelector: React.FC = () => {
-  const { state, actions } = useConnect<Packages>();
+type Props = {
+  label: string;
+  hideLabel?: boolean;
+} & React.SelectHTMLAttributes<HTMLSelectElement>;
 
-  const labelSelect = css`
+const Select: React.FC<Props> = ({
+  label,
+  hideLabel = false,
+  children,
+  ...props
+}) => {
+  const { state } = useConnect<Packages>();
+
+  const labelStyles = css`
     display: flex;
     flex-direction: column;
     white-space: nowrap;
     position: relative;
-    width: 100%;
-    color: ${state.theme.colors.two};
+    cursor: pointer;
 
     &:after {
       content: "‹";
@@ -27,13 +36,11 @@ const TemplateSelector: React.FC = () => {
       justify-content: center;
       box-sizing: border-box;
       padding-bottom: 3px;
-      color: ${state.theme.colors.two};
       border-top: 2px solid ${state.theme.colors.two};
     }
   `;
 
-  const select = css`
-    margin-top: 8px;
+  const selectStyles = css`
     height: 44px;
     border: 2px solid ${state.theme.colors.two};
     color: ${state.theme.colors.two};
@@ -46,24 +53,18 @@ const TemplateSelector: React.FC = () => {
     outline: none;
     z-index: 5;
     background: transparent;
+    ${!hideLabel && "margin-top: 8px;"}
+    cursor: pointer;
   `;
 
   return (
-    <label css={labelSelect}>
-      <select
-        name="template-design"
-        aria-label="Seleccionar plantilla"
-        css={select}
-        onChange={actions.theme.handleSelectChange}
-      >
-        {state.invoice.template.designs.map((design) => (
-          <option key={design.slug} value={design.slug}>
-            {design.name}
-          </option>
-        ))}
+    <label css={labelStyles}>
+      {!hideLabel && label}
+      <select css={selectStyles} aria-label={label} {...props}>
+        {children}
       </select>
     </label>
   );
 };
 
-export default connect(TemplateSelector, { injectProps: false });
+export default connect(Select, { injectProps: false });

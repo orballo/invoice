@@ -1,36 +1,50 @@
 import React from "react";
-import { css, connect } from "frontity";
+import { css, connect, useConnect } from "frontity";
+import { Packages } from "../../types";
 
-const Button: React.FC<
-  {
-    label?: string;
-    icon?: React.ReactNode;
-    color?: string;
-    align?: string;
-  } & React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ label, icon, color = "#FFF", align = "right", ...props }) => {
+type Props = {
+  label?: string;
+  hideLabel?: boolean;
+  icon?: React.ReactNode;
+  align?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+const Button: React.FC<Props> = ({
+  label,
+  hideLabel = false,
+  icon,
+  align = "right",
+  ...props
+}) => {
+  const { state } = useConnect<Packages>();
+
   const button = css`
-    background-color: ${color};
+    background-color: ${state.theme.colors.one};
     height: 44px;
     font-size: 16px;
     font-family: inherit;
-    border: 2px solid #333;
+    border: 2px solid ${state.theme.colors.two};
+    color: ${state.theme.colors.two};
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     outline: none;
 
+    &:disabled {
+      opacity: 0.3;
+    }
+
     & > svg {
-      ${label && align === "right" && "margin-left: 8px;"}
-      ${label && align === "left" && "margin-right: 8px;"}
+      ${label && !hideLabel && align === "right" && "margin-left: 8px;"}
+      ${label && !hideLabel && align === "left" && "margin-right: 8px;"}
     }
   `;
 
   return (
-    <button css={button} {...props}>
+    <button type="button" aria-label={label} css={button} {...props}>
       {align === "left" && icon}
-      {label}
+      {!hideLabel && label}
       {align === "right" && icon}
     </button>
   );
