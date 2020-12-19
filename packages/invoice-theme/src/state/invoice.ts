@@ -1,7 +1,5 @@
 import Theme from "../../types";
 
-const numberRegex = /^\d+(?:\.\d{1,2})?$/;
-
 const invoice: Theme["state"]["invoice"] = {
   number: "",
   provider: {
@@ -38,73 +36,60 @@ const invoice: Theme["state"]["invoice"] = {
         price: "",
       },
     ],
-    itemTotal: ({ state }) => (key) => {
+    itemTotal: ({ state }) => (id) => {
+      const item = state.invoice.concepts.items.find((item) => item.id === id);
+
       if (
-        state.invoice.isValidQuantity(key) &&
-        state.invoice.isValidPrice(key)
+        state.invoice.isValidNumber(item.quantity) &&
+        state.invoice.isValidNumber(item.price)
       ) {
-        const quantity = parseFloat(state.invoice.concepts.items[key].quantity);
-        const price = parseFloat(state.invoice.concepts.items[key].price);
+        const quantity = parseFloat(item.quantity);
+        const price = parseFloat(item.price);
         const total = (quantity * price).toFixed(2);
+
         return total;
       }
 
       return "0";
     },
-    taxable: ({ state }) => {
-      const itemTotals = state.invoice.concepts.items.map((_, key) =>
-        parseFloat(state.invoice.concepts.itemTotal(key))
+    totalTaxable: ({ state }) => {
+      const itemTotals = state.invoice.concepts.items.map((item) =>
+        parseFloat(state.invoice.concepts.itemTotal(item.id))
       );
 
-      if (itemTotals.every((total) => !!total)) {
-        const taxable = itemTotals.reduce((final, current) => final + current);
+      const total = itemTotals.reduce((final, current) => final + current);
 
-        return taxable.toFixed(2);
-      }
-
-      return "0";
+      return total.toFixed(2);
     },
     totalIva: ({ state }) => {
-      if (
-        !!state.invoice.concepts.taxable &&
-        state.invoice.concepts.hasIva &&
-        state.invoice.isValidIva
-      ) {
-        const totalIva =
-          parseFloat(state.invoice.concepts.taxable) *
+      if (state.invoice.isValidNumber(state.invoice.concepts.iva)) {
+        const total =
+          parseFloat(state.invoice.concepts.totalTaxable) *
           (parseFloat(state.invoice.concepts.iva) / 100);
 
-        return totalIva.toFixed(2);
+        return total.toFixed(2);
       }
 
       return "0";
     },
     totalIrpf: ({ state }) => {
-      if (
-        !!state.invoice.concepts.taxable &&
-        state.invoice.concepts.hasIrpf &&
-        state.invoice.isValidIrpf
-      ) {
-        const totalIrpf = -(
-          parseFloat(state.invoice.concepts.taxable) *
+      if (state.invoice.isValidNumber(state.invoice.concepts.irpf)) {
+        const total = -(
+          parseFloat(state.invoice.concepts.totalTaxable) *
           (parseFloat(state.invoice.concepts.irpf) / 100)
         );
 
-        return totalIrpf.toFixed(2);
+        return total.toFixed(2);
       }
 
       return "0";
     },
     total: ({ state }) => {
-      const { taxable, totalIva, totalIrpf } = state.invoice.concepts;
-      if (!!taxable && !!totalIva && !!totalIrpf) {
-        const total =
-          parseFloat(taxable) + parseFloat(totalIva) + parseFloat(totalIrpf);
+      const { totalTaxable, totalIva, totalIrpf } = state.invoice.concepts;
+      const total =
+        parseFloat(totalTaxable) + parseFloat(totalIva) + parseFloat(totalIrpf);
 
-        return total.toFixed(2);
-      }
-
-      return "";
+      return total.toFixed(2);
     },
   },
   payment: {
@@ -132,14 +117,10 @@ const invoice: Theme["state"]["invoice"] = {
     ],
     selected: "invoice-original",
   },
-  isValidQuantity: ({ state }) => (key) =>
-    numberRegex.test(state.invoice.concepts.items[key].quantity),
-  isValidPrice: ({ state }) => (key) =>
-    numberRegex.test(state.invoice.concepts.items[key].price),
-  isValidTotal: ({ state }) => (key) =>
-    numberRegex.test(state.invoice.concepts.itemTotal(key)),
-  isValidIva: ({ state }) => numberRegex.test(state.invoice.concepts.iva),
-  isValidIrpf: ({ state }) => numberRegex.test(state.invoice.concepts.irpf),
+  isValidNumber: () => (value) => {
+    const numberRegex = /^\d+(?:\.\d{1,2})?$/;
+    return numberRegex.test(value);
+  },
   hasProvider: ({ state }) => {
     const fields = Object.values(state.invoice.provider);
     return fields.some((field) => !!field);
