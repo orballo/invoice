@@ -27,17 +27,13 @@ export default interface Theme extends Package {
       notes: string;
       logo: Logo;
       template: Template;
-      isValidQuantity: Derived<Packages, number, boolean>;
-      isValidPrice: Derived<Packages, number, boolean>;
-      isValidTotal: Derived<Packages, number, boolean>;
-      isValidIva: Derived<Packages, boolean>;
-      isValidIrpf: Derived<Packages, boolean>;
+      isValidNumber: Derived<Packages, string, boolean>;
       hasProvider: Derived<Packages, boolean>;
       hasClient: Derived<Packages, boolean>;
       hasConcept: Derived<Packages, boolean>;
     };
     pdf: {
-      url?: string;
+      url: string;
     };
   };
   actions: {
@@ -72,6 +68,7 @@ export default interface Theme extends Package {
     };
     invoice: {
       afterCSR: Action<Packages>;
+      populateDates: Action<Packages>;
       fake: Action<Packages>;
     };
   };
@@ -104,7 +101,7 @@ export interface Concepts {
   counter: number;
   items: Item[];
   itemTotal: Derived<Packages, number, string>;
-  taxable: Derived<Packages, string>;
+  totalTaxable: Derived<Packages, string>;
   totalIva: Derived<Packages, string>;
   totalIrpf: Derived<Packages, string>;
   total: Derived<Packages, string>;

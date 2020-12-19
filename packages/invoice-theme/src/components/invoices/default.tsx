@@ -270,15 +270,18 @@ const Invoice: React.FC<{
             </View>
             <View style={styles.conceptsBody}>
               <View style={styles.conceptsItems}>
-                {invoice.concepts.items.map((item, key) => (
-                  <View key={key} style={styles.conceptsItem}>
+                {invoice.concepts.items.map((item) => (
+                  <View key={item.id} style={styles.conceptsItem}>
                     <Text style={styles.concept}>{item.concept}</Text>
                     <Text style={styles.quantity}>{item.quantity}</Text>
                     <Text style={styles.price}>
                       {!!item.price && toMoney(item.price as any) + "€"}
                     </Text>
                     <Text style={styles.total}>
-                      {toMoney(invoice.concepts.itemTotal(key as any) as any)}€
+                      {toMoney(
+                        invoice.concepts.itemTotal(item.id as any) as any
+                      )}
+                      €
                     </Text>
                   </View>
                 ))}
@@ -287,7 +290,7 @@ const Invoice: React.FC<{
                 <View style={styles.conceptsTotalItem}>
                   <Text style={styles.conceptsTotalTitle}>Base imponible</Text>
                   <Text style={styles.conceptsTotalNumber}>
-                    {toMoney(invoice.concepts.taxable as any)}€
+                    {toMoney(invoice.concepts.totalTaxable as any)}€
                   </Text>
                 </View>
                 {invoice.concepts.hasIva && (
