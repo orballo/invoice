@@ -10,7 +10,18 @@ const settings: Settings = {
         "Invoice es un generador de facturas online gratuito. Simplemente rellena el formulario, selecciona la plantilla deseada y descárgate el PDF.",
     },
   },
-  packages: ["invoice-theme"],
+  packages: [
+    "invoice-theme",
+    {
+      name: "@orballo/plausible-analytics",
+      state: {
+        plausible: {
+          domain: "invoice.orballo.dev",
+          customDomain: "stats.invoice.orballo.dev",
+        },
+      },
+    },
+  ],
 };
 
 export default settings;

@@ -1,0 +1,13 @@
+{
+  "name": "@orballo/plausible-analytics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontity package for Plausible analytics",
+  "keywords": [
+    "frontity",
+    "frontity-package"
+  ],
+  "dependencies": {
+    "@frontity/analytics": "^1.2.0"
+  }
+}

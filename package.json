@@ -22,6 +22,7 @@
     "@types/react": "^17.0.0",
     "frontity": "^1.13.0",
     "invoice-theme": "file:packages/invoice-theme",
+    "@orballo/plausible-analytics": "file:packages/plausible-analytics",
     "react-pdf": "^5.1.0"
   }
 }

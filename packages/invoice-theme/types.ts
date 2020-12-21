@@ -6,6 +6,7 @@ import {
   Frontity,
   MergePackages,
 } from "frontity/types";
+import Plausible from "@orballo/plausible-analytics/types";
 
 export default interface Theme extends Package {
   name: "invoice-theme";
@@ -74,7 +75,7 @@ export default interface Theme extends Package {
   };
 }
 
-export type Packages = MergePackages<Theme, Frontity>;
+export type Packages = MergePackages<Theme, Frontity, Plausible>;
 
 export interface Colors {
   one: string;

@@ -4,7 +4,13 @@ import DownloadIcon from "./icons/download";
 import { Packages } from "../../types";
 
 const Download: React.FC = () => {
-  const { state } = useConnect<Packages>();
+  const { state, actions } = useConnect<Packages>();
+
+  const handleClick = () => {
+    if (actions.analytics.event) {
+      actions.analytics.event({ name: "Download PDF", payload: null });
+    }
+  };
 
   const anchor = css`
     color: ${state.theme.colors.two};
@@ -35,6 +41,7 @@ const Download: React.FC = () => {
         css={anchor}
         href={state.pdf.url}
         download={`${state.invoice.provider.name} - Factura #${state.invoice.number}.pdf`}
+        onClick={handleClick}
       >
         Descargar PDF <DownloadIcon css={icon} />
       </a>
