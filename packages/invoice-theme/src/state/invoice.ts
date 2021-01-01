@@ -86,8 +86,9 @@ const invoice: Theme["state"]["invoice"] = {
     },
     total: ({ state }) => {
       const { totalTaxable, totalIva, totalIrpf } = state.invoice.concepts;
-      const total =
-        parseFloat(totalTaxable) + parseFloat(totalIva) + parseFloat(totalIrpf);
+      let total = parseFloat(totalTaxable);
+      if (state.invoice.concepts.hasIva) total += parseFloat(totalIva);
+      if (state.invoice.concepts.hasIrpf) total += parseFloat(totalIrpf);
 
       return total.toFixed(2);
     },

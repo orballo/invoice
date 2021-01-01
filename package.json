@@ -18,11 +18,11 @@
   "prettier": {},
   "dependencies": {
     "@frontity/core": "^1.9.1",
+    "@orballo/plausible-analytics": "file:packages/plausible-analytics",
     "@react-pdf/renderer": "^1.6.12",
     "@types/react": "^17.0.0",
     "frontity": "^1.13.0",
     "invoice-theme": "file:packages/invoice-theme",
-    "@orballo/plausible-analytics": "file:packages/plausible-analytics",
     "react-pdf": "^5.1.0"
   }
 }
