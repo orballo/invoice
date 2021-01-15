@@ -17,6 +17,7 @@ export default interface Theme extends Package {
     theme: {
       colors: Colors;
       isPreviewHidden: boolean;
+      shouldLoadPDF: boolean;
     };
     invoice: {
       number: string;
@@ -66,6 +67,7 @@ export default interface Theme extends Package {
       >;
       showPreview: Action<Packages, React.MouseEvent<HTMLButtonElement>>;
       hidePreview: Action<Packages, React.MouseEvent<HTMLButtonElement>>;
+      loadPDF: Action<Packages>;
     };
     invoice: {
       afterCSR: Action<Packages>;

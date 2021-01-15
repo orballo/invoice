@@ -1,5 +1,6 @@
 import React from "react";
 import { connect, useConnect, css, Global, loadable } from "frontity";
+import useInView from "@frontity/hooks/use-in-view";
 import Head from "./head";
 import Fonts from "./fonts";
 import Header from "./header";
@@ -19,7 +20,13 @@ const Viewer = loadable(() => import("./viewer"), {
 });
 
 const Root: React.FC = () => {
-  const { state } = useConnect<Packages>();
+  const { state, actions } = useConnect<Packages>();
+
+  const { ref, inView } = useInView();
+
+  React.useEffect(() => {
+    if (inView) actions.theme.loadPDF();
+  }, [inView]);
 
   const global = css`
     html,
@@ -109,7 +116,7 @@ const Root: React.FC = () => {
 
   return (
     <>
-      <Pdf />
+      {state.theme.shouldLoadPDF && <Pdf />}
       <Head />
       <Fonts />
       <Global styles={global} />
@@ -123,9 +130,9 @@ const Root: React.FC = () => {
           </div>
           <Footer />
         </div>
-        <div css={rightColumn}>
+        <div css={rightColumn} ref={ref}>
           <Loading css={loader} />
-          <Viewer />
+          {state.theme.shouldLoadPDF && <Viewer />}
         </div>
       </main>
     </>
