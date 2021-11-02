@@ -43,6 +43,10 @@ const Root: React.FC = () => {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       ${!state.theme.isPreviewHidden && "overflow: hidden;"}
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     a {
