@@ -7,7 +7,8 @@
     "noEmit": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "allowJs": true
   },
   "include": ["packages/**/*"]

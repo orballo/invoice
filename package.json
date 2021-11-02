@@ -17,12 +17,13 @@
   },
   "prettier": {},
   "dependencies": {
-    "@frontity/core": "^1.9.1",
-    "@react-pdf/renderer": "^1.6.12",
-    "@types/react": "^17.0.0",
-    "frontity": "^1.13.0",
-    "invoice-theme": "file:packages/invoice-theme",
+    "@frontity/core": "^1.14.3",
+    "@frontity/types": "^1.9.0",
     "@orballo/plausible-analytics": "file:packages/plausible-analytics",
-    "react-pdf": "^5.1.0"
+    "@react-pdf/renderer": "^2.0.20",
+    "@types/react": "^17.0.33",
+    "frontity": "^1.17.1",
+    "invoice-theme": "file:packages/invoice-theme",
+    "react-pdf": "5.1.0"
   }
 }

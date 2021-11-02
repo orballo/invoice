@@ -1,4 +1,4 @@
-import { Settings } from "frontity/types";
+import { Settings } from "@frontity/types";
 
 const settings: Settings = {
   name: "invoice-frontity",
