@@ -18,6 +18,7 @@
   "prettier": {},
   "dependencies": {
     "@frontity/core": "^1.14.3",
+    "@frontity/hooks": "^2.2.2",
     "@frontity/types": "^1.9.0",
     "@orballo/plausible-analytics": "file:packages/plausible-analytics",
     "@react-pdf/renderer": "^2.0.20",

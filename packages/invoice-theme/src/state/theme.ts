@@ -8,6 +8,7 @@ const theme: Theme["state"]["theme"] = {
     four: "#DD5577",
   },
   isPreviewHidden: true,
+  shouldLoadPDF: false,
 };
 
 export default theme;

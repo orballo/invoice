@@ -107,6 +107,9 @@ const theme: Theme["actions"]["theme"] = {
     event?.preventDefault();
     state.theme.isPreviewHidden = true;
   },
+  loadPDF: ({ state }) => {
+    state.theme.shouldLoadPDF = true;
+  },
 };
 
 export default theme;
