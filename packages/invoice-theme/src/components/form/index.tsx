@@ -340,8 +340,8 @@ const Form: React.FC = () => {
           onChange={actions.theme.handleSelectChange}
         >
           {state.invoice.currency.currencies.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
+            <option key={currency.code} value={currency.code}>
+              {currency.code}
             </option>
           ))}
         </Select>

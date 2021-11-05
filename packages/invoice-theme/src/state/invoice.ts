@@ -119,8 +119,18 @@ const invoice: Theme["state"]["invoice"] = {
     selected: "invoice-original",
   },
   currency: {
-    currencies: ["EUR", "USD"],
+    currencies: [
+      { code: "EUR", symbol: "€" },
+      { code: "USD", symbol: "$" },
+    ],
     selected: "EUR",
+    symbol: ({ state }) => {
+      return (
+        state.invoice.currency.currencies.find(
+          (currency) => currency.code === state.invoice.currency.selected
+        )?.symbol || ""
+      );
+    },
   },
   language: {
     languages: ["Español", "Inglés"],

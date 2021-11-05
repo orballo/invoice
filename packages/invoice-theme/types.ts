@@ -156,8 +156,9 @@ export interface TemplateDesign {
 }
 
 export interface Currency {
-  currencies: string[];
+  currencies: { code: string; symbol: string }[];
   selected: string;
+  symbol: Derived<Packages, string>;
 }
 
 export interface Language {

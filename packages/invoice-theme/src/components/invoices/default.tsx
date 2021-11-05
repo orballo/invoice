@@ -179,6 +179,7 @@ const getStyles = (colors: Colors) =>
     },
     notes: {
       marginTop: "auto",
+      justifyContent: "flex-end",
     },
     notesText: {
       marginTop: 6,
@@ -275,13 +276,24 @@ const Invoice: React.FC<{
                     <Text style={styles.concept}>{item.concept}</Text>
                     <Text style={styles.quantity}>{item.quantity}</Text>
                     <Text style={styles.price}>
-                      {!!item.price && toMoney(item.price as any) + "€"}
+                      {invoice.currency.selected === "USD"
+                        ? invoice.currency.symbol
+                        : ""}
+                      {!!item.price && toMoney(item.price as any)}
+                      {invoice.currency.selected === "EUR"
+                        ? invoice.currency.symbol
+                        : ""}
                     </Text>
                     <Text style={styles.total}>
+                      {invoice.currency.selected === "USD"
+                        ? invoice.currency.symbol
+                        : ""}
                       {toMoney(
                         invoice.concepts.itemTotal(item.id as any) as any
                       )}
-                      €
+                      {invoice.currency.selected === "EUR"
+                        ? invoice.currency.symbol
+                        : ""}
                     </Text>
                   </View>
                 ))}
@@ -290,7 +302,13 @@ const Invoice: React.FC<{
                 <View style={styles.conceptsTotalItem}>
                   <Text style={styles.conceptsTotalTitle}>Base imponible</Text>
                   <Text style={styles.conceptsTotalNumber}>
-                    {toMoney(invoice.concepts.totalTaxable as any)}€
+                    {invoice.currency.selected === "USD"
+                      ? invoice.currency.symbol
+                      : ""}
+                    {toMoney(invoice.concepts.totalTaxable as any)}
+                    {invoice.currency.selected === "EUR"
+                      ? invoice.currency.symbol
+                      : ""}
                   </Text>
                 </View>
                 {invoice.concepts.hasIva && (
@@ -299,7 +317,13 @@ const Invoice: React.FC<{
                       IVA ({invoice.concepts.iva}%)
                     </Text>
                     <Text style={styles.conceptsTotalNumber}>
-                      {toMoney(invoice.concepts.totalIva as any)}€
+                      {invoice.currency.selected === "USD"
+                        ? invoice.currency.symbol
+                        : ""}
+                      {toMoney(invoice.concepts.totalIva as any)}
+                      {invoice.currency.selected === "EUR"
+                        ? invoice.currency.symbol
+                        : ""}
                     </Text>
                   </View>
                 )}
@@ -309,14 +333,26 @@ const Invoice: React.FC<{
                       IRPF ({invoice.concepts.irpf}%)
                     </Text>
                     <Text style={styles.conceptsTotalNumber}>
-                      {toMoney(invoice.concepts.totalIrpf as any)}€
+                      {invoice.currency.selected === "USD"
+                        ? invoice.currency.symbol
+                        : ""}
+                      {toMoney(invoice.concepts.totalIrpf as any)}
+                      {invoice.currency.selected === "EUR"
+                        ? invoice.currency.symbol
+                        : ""}
                     </Text>
                   </View>
                 )}
                 <View style={styles.conceptsTotalItem}>
                   <Text style={styles.conceptsTotalTitle}>Total</Text>
                   <Text style={styles.conceptsTotalNumber}>
-                    {toMoney(invoice.concepts.total as any)}€
+                    {invoice.currency.selected === "USD"
+                      ? invoice.currency.symbol
+                      : ""}
+                    {toMoney(invoice.concepts.total as any)}
+                    {invoice.currency.selected === "EUR"
+                      ? invoice.currency.symbol
+                      : ""}
                   </Text>
                 </View>
               </View>
@@ -333,7 +369,10 @@ const Invoice: React.FC<{
           <View
             style={[
               styles.section,
-              { marginTop: !invoice.notes ? "auto" : 30 },
+              {
+                marginTop: !invoice.notes ? "auto" : 30,
+                justifyContent: "flex-end",
+              },
             ]}
           >
             <Text style={styles.sectionTitle}>Forma de pago</Text>
