@@ -63,6 +63,14 @@ const theme: Theme["actions"]["theme"] = {
       if (event.target.name === "template-design") {
         state.invoice.template.selected = event.target.value;
       }
+
+      if (event.target.name === "currency") {
+        state.invoice.currency.selected = event.target.value;
+      }
+
+      if (event.target.name === "language") {
+        state.invoice.language.selected = event.target.value;
+      }
     };
   },
   handleFileChange({ state }) {

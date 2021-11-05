@@ -29,6 +29,8 @@ export default interface Theme extends Package {
       notes: string;
       logo: Logo;
       template: Template;
+      currency: Currency;
+      language: Language;
       isValidNumber: Derived<Packages, string, boolean>;
       hasProvider: Derived<Packages, boolean>;
       hasClient: Derived<Packages, boolean>;
@@ -151,4 +153,14 @@ export interface Template {
 export interface TemplateDesign {
   name: string;
   slug: string;
+}
+
+export interface Currency {
+  currencies: string[];
+  selected: string;
+}
+
+export interface Language {
+  languages: string[];
+  selected: string;
 }

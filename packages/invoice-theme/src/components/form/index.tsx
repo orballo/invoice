@@ -316,6 +316,36 @@ const Form: React.FC = () => {
           ))}
         </Select>
       </Fieldset>
+      <Fieldset legend="Idioma">
+        <Select
+          name="language"
+          label="Seleccionar idioma"
+          hideLabel
+          value={state.invoice.language.selected}
+          onChange={actions.theme.handleSelectChange}
+        >
+          {state.invoice.language.languages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </Select>
+      </Fieldset>
+      <Fieldset legend="Divisa">
+        <Select
+          name="currency"
+          label="Seleccionar divisa"
+          hideLabel
+          value={state.invoice.currency.selected}
+          onChange={actions.theme.handleSelectChange}
+        >
+          {state.invoice.currency.currencies.map((currency) => (
+            <option key={currency} value={currency}>
+              {currency}
+            </option>
+          ))}
+        </Select>
+      </Fieldset>
     </form>
   );
 };

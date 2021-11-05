@@ -118,6 +118,14 @@ const invoice: Theme["state"]["invoice"] = {
     ],
     selected: "invoice-original",
   },
+  currency: {
+    currencies: ["EUR", "USD"],
+    selected: "EUR",
+  },
+  language: {
+    languages: ["Español", "Inglés"],
+    selected: "Español",
+  },
   isValidNumber: () => (value) => {
     const numberRegex = /^\d+(?:\.\d{1,2})?$/;
     return numberRegex.test(value);
