@@ -299,18 +299,19 @@ const Invoice: React.FC<{
                 ))}
               </View>
               <View style={styles.conceptsTotal}>
-                <View style={styles.conceptsTotalItem}>
-                  <Text style={styles.conceptsTotalTitle}>Base imponible</Text>
-                  <Text style={styles.conceptsTotalNumber}>
-                    {invoice.currency.selected === "USD"
-                      ? invoice.currency.symbol
-                      : ""}
-                    {toMoney(invoice.concepts.totalTaxable as any)}
-                    {invoice.currency.selected === "EUR"
-                      ? invoice.currency.symbol
-                      : ""}
-                  </Text>
-                </View>
+                {invoice.currency.selected === "EUR" && (
+                  <View style={styles.conceptsTotalItem}>
+                    <Text style={styles.conceptsTotalTitle}>
+                      Base imponible
+                    </Text>
+                    <Text style={styles.conceptsTotalNumber}>
+                      {toMoney(invoice.concepts.totalTaxable as any)}
+                      {invoice.currency.selected === "EUR"
+                        ? invoice.currency.symbol
+                        : ""}
+                    </Text>
+                  </View>
+                )}
                 {invoice.concepts.hasIva && (
                   <View style={styles.conceptsTotalItem}>
                     <Text style={styles.conceptsTotalTitle}>
