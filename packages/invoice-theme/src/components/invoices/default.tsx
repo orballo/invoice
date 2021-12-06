@@ -208,12 +208,48 @@ const Invoice: React.FC<{
 
   const styles = getStyles(colors);
 
+  const i18n = {
+    Español: {
+      "Factura #": "Factura #",
+      Emitida: "Emitida",
+      Vence: "Vence",
+      Proveedor: "Proveedor",
+      Cliente: "Cliente",
+      Concepto: "Concepto",
+      Cantidad: "Cantidad",
+      Precio: "Precio",
+      TotalUno: "Total",
+      "Base imponible": "Base imponible",
+      Total: "Total",
+      Notas: "Notas",
+      "Forma de pago": "Forma de pago",
+    },
+    Inglés: {
+      "Factura #": "Invoice #",
+      Emitida: "Issued",
+      Vence: "Due",
+      Proveedor: "From",
+      Cliente: "To",
+      Concepto: "Details",
+      Cantidad: "Hours",
+      Precio: "Rate",
+      TotalUno: "Amount",
+      "Base imponible": "Tax base",
+      Total: "Total",
+      Notas: "Notes",
+      "Forma de pago": "Payment",
+    },
+  };
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.invoiceNumber}>Factura #{invoice.number}</Text>
+            <Text style={styles.invoiceNumber}>
+              {i18n[invoice.language.selected]["Factura #"]}
+              {invoice.number}
+            </Text>
             <View style={styles.dates}>
               <View
                 style={[
@@ -221,11 +257,15 @@ const Invoice: React.FC<{
                   { marginRight: 20, justifyContent: "flex-start" },
                 ]}
               >
-                <Text style={styles.dateTitle}>Emitida</Text>
+                <Text style={styles.dateTitle}>
+                  {i18n[invoice.language.selected]["Emitida"]}
+                </Text>
                 <Text>{invoice.dates.issued}</Text>
               </View>
               <View style={styles.datesInner}>
-                <Text style={styles.dateTitle}>Vence</Text>
+                <Text style={styles.dateTitle}>
+                  {i18n[invoice.language.selected]["Vence"]}
+                </Text>
                 <Text>{invoice.dates.expires}</Text>
               </View>
             </View>
@@ -244,7 +284,11 @@ const Invoice: React.FC<{
                     { color: colors.textOne, marginTop: -36 },
                   ]}
                 >
-                  {prefix === "provider" ? "Proveedor" : "Cliente"}
+                  {
+                    i18n[invoice.language.selected][
+                      prefix === "provider" ? "Proveedor" : "Cliente"
+                    ]
+                  }
                 </Text>
                 <View style={{ color: colors.textTwo, marginTop: 16 }}>
                   <Text>{invoice[prefix].name}</Text>
@@ -264,10 +308,18 @@ const Invoice: React.FC<{
         {invoice.hasConcept && (
           <View style={styles.concepts}>
             <View style={styles.conceptsHeader}>
-              <Text style={styles.concept}>Concepto</Text>
-              <Text style={styles.quantity}>Cantidad</Text>
-              <Text style={styles.price}>Precio</Text>
-              <Text style={styles.total}>Total</Text>
+              <Text style={styles.concept}>
+                {i18n[invoice.language.selected]["Concepto"]}
+              </Text>
+              <Text style={styles.quantity}>
+                {i18n[invoice.language.selected]["Cantidad"]}
+              </Text>
+              <Text style={styles.price}>
+                {i18n[invoice.language.selected]["Precio"]}
+              </Text>
+              <Text style={styles.total}>
+                {i18n[invoice.language.selected]["TotalUno"]}
+              </Text>
             </View>
             <View style={styles.conceptsBody}>
               <View style={styles.conceptsItems}>
@@ -299,10 +351,10 @@ const Invoice: React.FC<{
                 ))}
               </View>
               <View style={styles.conceptsTotal}>
-                {invoice.currency.selected === "EUR" && (
+                {(invoice.concepts.hasIva || invoice.concepts.hasIrpf) && (
                   <View style={styles.conceptsTotalItem}>
                     <Text style={styles.conceptsTotalTitle}>
-                      Base imponible
+                      {i18n[invoice.language.selected]["Base imponible"]}
                     </Text>
                     <Text style={styles.conceptsTotalNumber}>
                       {toMoney(invoice.concepts.totalTaxable as any)}
@@ -345,7 +397,9 @@ const Invoice: React.FC<{
                   </View>
                 )}
                 <View style={styles.conceptsTotalItem}>
-                  <Text style={styles.conceptsTotalTitle}>Total</Text>
+                  <Text style={styles.conceptsTotalTitle}>
+                    {i18n[invoice.language.selected]["Total"]}
+                  </Text>
                   <Text style={styles.conceptsTotalNumber}>
                     {invoice.currency.selected === "USD"
                       ? invoice.currency.symbol
@@ -362,7 +416,9 @@ const Invoice: React.FC<{
         )}
         {!!invoice.notes && (
           <View style={styles.notes}>
-            <Text style={styles.sectionTitle}>Notas</Text>
+            <Text style={styles.sectionTitle}>
+              {i18n[invoice.language.selected]["Notas"]}
+            </Text>
             <Text style={styles.notesText}>{invoice.notes}</Text>
           </View>
         )}
@@ -376,7 +432,9 @@ const Invoice: React.FC<{
               },
             ]}
           >
-            <Text style={styles.sectionTitle}>Forma de pago</Text>
+            <Text style={styles.sectionTitle}>
+              {i18n[invoice.language.selected]["Forma de pago"]}
+            </Text>
             <View style={styles.paymentBody}>
               {invoice.payment.selected === "transfer" && (
                 <>
