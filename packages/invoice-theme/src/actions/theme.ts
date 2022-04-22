@@ -28,7 +28,14 @@ const theme: Theme["actions"]["theme"] = {
         }, state.invoice);
       };
 
-      debounce(action, event);
+      if (
+        event.target.name === "dates-expires" ||
+        event.target.name === "dates-issued"
+      ) {
+        action();
+      } else {
+        debounce(action, event);
+      }
     };
   },
   handleConceptChange({ state }) {
@@ -107,14 +114,18 @@ const theme: Theme["actions"]["theme"] = {
       }
     };
   },
-  showPreview: ({ state }) => (event) => {
-    event?.preventDefault();
-    state.theme.isPreviewHidden = false;
-  },
-  hidePreview: ({ state }) => (event) => {
-    event?.preventDefault();
-    state.theme.isPreviewHidden = true;
-  },
+  showPreview:
+    ({ state }) =>
+    (event) => {
+      event?.preventDefault();
+      state.theme.isPreviewHidden = false;
+    },
+  hidePreview:
+    ({ state }) =>
+    (event) => {
+      event?.preventDefault();
+      state.theme.isPreviewHidden = true;
+    },
   loadPDF: ({ state }) => {
     state.theme.shouldLoadPDF = true;
   },

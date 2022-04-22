@@ -251,23 +251,27 @@ const Invoice: React.FC<{
               {invoice.number}
             </Text>
             <View style={styles.dates}>
-              <View
-                style={[
-                  styles.datesInner,
-                  { marginRight: 20, justifyContent: "flex-start" },
-                ]}
-              >
-                <Text style={styles.dateTitle}>
-                  {i18n[invoice.language.selected]["Emitida"]}
-                </Text>
-                <Text>{invoice.dates.issued}</Text>
-              </View>
-              <View style={styles.datesInner}>
-                <Text style={styles.dateTitle}>
-                  {i18n[invoice.language.selected]["Vence"]}
-                </Text>
-                <Text>{invoice.dates.expires}</Text>
-              </View>
+              {!!invoice.dates.issued && (
+                <View
+                  style={[
+                    styles.datesInner,
+                    { marginRight: 20, justifyContent: "flex-start" },
+                  ]}
+                >
+                  <Text style={styles.dateTitle}>
+                    {i18n[invoice.language.selected]["Emitida"]}
+                  </Text>
+                  <Text>{invoice.dates.issued}</Text>
+                </View>
+              )}
+              {!!invoice.dates.expires && (
+                <View style={styles.datesInner}>
+                  <Text style={styles.dateTitle}>
+                    {i18n[invoice.language.selected]["Vence"]}
+                  </Text>
+                  <Text>{invoice.dates.expires}</Text>
+                </View>
+              )}
             </View>
           </View>
           {!!invoice.logo.url && (

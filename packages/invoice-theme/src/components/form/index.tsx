@@ -95,7 +95,7 @@ const Form: React.FC = () => {
             label="Fecha de emisión"
             placeholder="DD/MM/YYYY"
             align="center"
-            defaultValue={state.invoice.dates.issued}
+            value={state.invoice.dates.issued}
             onChange={actions.theme.handleChange}
           />
           <Input
@@ -104,7 +104,7 @@ const Form: React.FC = () => {
             label="Fecha de vencimiento"
             placeholder="DD/MM/YYYY"
             align="center"
-            defaultValue={state.invoice.dates.expires}
+            value={state.invoice.dates.expires}
             onChange={actions.theme.handleChange}
           />
         </div>
